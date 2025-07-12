@@ -1,7 +1,7 @@
 # Image Flip
 画像を左右反転させるプログラム
 
-## setup
+## Setup
 ```
 uv install
 ```
