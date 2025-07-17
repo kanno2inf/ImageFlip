@@ -1,6 +1,14 @@
+import os
 from argparse import ArgumentParser
+from multiprocessing import Pool
 
 from PIL import Image, ImageOps
+
+
+def flip_image(image_path):
+    with Image.open(image_path) as img:
+        print(f"{os.path.basename(image_path)}", flush=True)
+        ImageOps.mirror(img).save(image_path)
 
 
 def main():
@@ -9,9 +17,8 @@ def main():
     opt = parser.parse_args()
     path_list = opt.path
 
-    for image_path in path_list:
-        with Image.open(image_path) as img:
-            ImageOps.mirror(img).save(image_path)
+    with Pool() as pool:
+        pool.map(flip_image, path_list)
 
 
 if __name__ == "__main__":
